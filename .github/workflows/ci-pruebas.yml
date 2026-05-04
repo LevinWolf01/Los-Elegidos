@@ -9,20 +9,22 @@ on:
 
 jobs:
   test-de-logica:
-    runs-on: ubuntu-latest # Usa una computadora con Linux (gratis)
-
+    runs-on: ubuntu-latest 
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
     steps:
-      - name: Descargar mi código
-        uses: actions/checkout@v4 # El robot "clona" tu repo para poder leerlo
+      - name: Checkout Code
+        uses: actions/checkout@v4 
 
-      - name: Instalar Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
           cache: 'npm' # Esto hace que las siguientes veces sea más rápido
 
-      - name: Instalar dependencias (Vitest, JSDOM)
-        run: npm install # Lee tu package.json e instala todo lo necesario
+      - name: Install dependencies (Vitest, JSDOM)
+        run: npm install 
 
       - name: Ejecutar los 30 tests
-        run: npm test # ¡Aquí es donde corre tu comando de Vitest!
+        run: npm test 
