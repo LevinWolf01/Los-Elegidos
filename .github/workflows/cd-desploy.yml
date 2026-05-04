@@ -14,16 +14,27 @@ jobs:
       pages: write
       id-token: write
 
-    steps:
-      - uses: actions/checkout@v4
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
       
-      - name: Config Pages
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Setup Pages
         uses: actions/configure-pages@v4
         
-      - name: Subir archivos
+      - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
-      - name: Desplegar
+      - name: Desploy Github Pages
+        id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Show Deployment URL
+        run: |
+            echo "Sitio en Producción 👍"
+            echo "Deployment URL: ${{ steps.deployment.outputs.page_url }}"
