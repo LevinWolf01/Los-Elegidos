@@ -28,3 +28,6 @@ jobs:
 
       - name: Ejecutar los tests
         run: npx vitest run
+
+      - name: Run Tests
+        run: npm test
