@@ -1,0 +1,28 @@
+name: Evaluador de Ejercicios 
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+
+jobs:
+  test-de-logica:
+    runs-on: ubuntu-latest # Usa una computadora con Linux (gratis)
+
+    steps:
+      - name: Descargar mi código
+        uses: actions/checkout@v4 # El robot "clona" tu repo para poder leerlo
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm' # Esto hace que las siguientes veces sea más rápido
+
+      - name: Instalar dependencias (Vitest, JSDOM)
+        run: npm install # Lee tu package.json e instala todo lo necesario
+
+      - name: Ejecutar los 30 tests
+        run: npm test # ¡Aquí es donde corre tu comando de Vitest!
