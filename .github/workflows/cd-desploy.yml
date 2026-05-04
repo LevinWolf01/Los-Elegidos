@@ -1,21 +1,19 @@
 name: CD - Despliegue a Pages
-
 on:
-  workflow_run:
-    workflows: ["CI - Pruebas de ejercicios"] # Debe coincidir con el 'name' del primer archivo
-    types:
-      - completed
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
 
 jobs:
   deploy:
-    # Solo se ejecuta si el workflow de tests terminó exitosamente!
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
     steps:
       - uses: actions/checkout@v4
       
