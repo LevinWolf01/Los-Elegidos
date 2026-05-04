@@ -66,6 +66,7 @@
             <br><br>
             <hr width="20%">
             <button id = "btnStart">Empezar Actividad 🚀</button>
+            <button id = "btnTest">Ejecutar Tests 🧪</button>
             <hr width="20%">
             <br><br>
 
@@ -88,6 +89,26 @@
             <hr width="50%">
             <hr width="75%">
             <hr width="100%">
+
+            <script type="module">
+                import { ejecutarTests } from './verificarTests.js';
+
+                const btnTest = document.getElementById('btnTest');
+                const resultados = document.getElementById('resultados');
+
+                btnTest.addEventListener('click', async () => {
+                    btnTest.disabled = true;
+                    btnTest.textContent = 'Ejecutando tests... ⏳';
+                    resultados.style.color = 'white';
+                    resultados.innerHTML = '<p>Verificando ejercicios...</p>';
+                    
+                    const resultado = await ejecutarTests();
+                    resultados.innerHTML = resultado;
+                    
+                    btnTest.disabled = false;
+                    btnTest.textContent = 'Ejecutar Tests 🧪';
+                });
+            </script>
 
             <script type="module" src="The Ejecutor.js"></script>
         </center>
